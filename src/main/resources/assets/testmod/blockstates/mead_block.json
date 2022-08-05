@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "pickles=1,facing=north": {
+      "model": "testmod:block/mead_block1"
+    },
+    "pickles=1,facing=east": {
+      "model": "testmod:block/mead_block1",
+      "y": 90
+    },
+    "pickles=1,facing=south": {
+      "model": "testmod:block/mead_block1",
+      "y": 190
+    },
+    "pickles=1,facing=west": {
+      "model": "testmod:block/mead_block1",
+      "y": 270
+    },
+    "pickles=2,facing=north": {
+      "model": "testmod:block/mead_block1"
+    },
+    "pickles=2,facing=east": {
+      "model": "testmod:block/mead_block2",
+      "y": 90
+    },
+    "pickles=2,facing=south": {
+      "model": "testmod:block/mead_block2",
+      "y": 180
+    },
+    "pickles=2,facing=west": {
+      "model": "testmod:block/mead_block2",
+      "y": 270
+    },
+    "pickles=3,facing=north": {
+      "model": "testmod:block/mead_block3"
+    },
+    "pickles=3,facing=east": {
+      "model": "testmod:block/mead_block3",
+      "y": 90
+    },
+    "pickles=3,facing=south": {
+      "model": "testmod:block/mead_block3",
+      "y": 180
+    },
+    "pickles=3,facing=west": {
+      "model": "testmod:block/mead_block3",
+      "y": 270
+    },
+    "pickles=4,facing=north": {
+      "model": "testmod:block/mead_block4"
+    },
+    "pickles=4,facing=east": {
+      "model": "testmod:block/mead_block4",
+      "y": 90
+    },
+    "pickles=4,facing=south": {
+      "model": "testmod:block/mead_block4",
+      "y": 180
+    },
+    "pickles=4,facing=west": {
+      "model": "testmod:block/mead_block4",
+      "y": 270
+    }
+  }
+}

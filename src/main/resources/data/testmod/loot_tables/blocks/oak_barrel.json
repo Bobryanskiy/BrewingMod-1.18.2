@@ -1,0 +1,75 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "testmod:oak_barrel",
+              "functions": [
+                {
+                  "function": "minecraft:copy_nbt",
+                  "source": "block_entity",
+                  "ops": [
+                    {
+                      "source": "LootTable",
+                      "target": "BlockEntityTag.LootTable",
+                      "op": "replace"
+                    },
+                    {
+                      "source": "LootTableSeed",
+                      "target": "BlockEntityTag.LootTableSeed",
+                      "op": "replace"
+                    },
+                    {
+                      "source": "progress",
+                      "target": "BlockEntityTag.progress",
+                      "op": "replace"
+                    }
+                  ]
+                },
+                {
+                  "function": "minecraft:copy_state",
+                  "block": "testmod:oak_barrel",
+                  "properties": [
+                    "type",
+                    "level",
+                    "corked"
+                  ]
+                },
+                {
+                  "function": "minecraft:set_contents",
+                  "type": "testmod:oak_barrel",
+                  "entries": [
+                    {
+                      "type": "minecraft:dynamic",
+                      "name": "minecraft:contents"
+                    }
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "testmod:oak_barrel",
+                  "properties": {
+                    "corked": "true"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "testmod:oak_barrel"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

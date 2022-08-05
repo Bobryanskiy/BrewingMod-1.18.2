@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "age=0": { "model": "testmod:block/hop_vine0" },
+    "age=1": { "model": "testmod:block/hop_vine1" },
+    "age=2": { "model": "testmod:block/hop_vine2" },
+    "age=3": { "model": "testmod:block/hop_vine3" },
+    "age=4": { "model": "testmod:block/hop_vine4" },
+    "age=5": { "model": "testmod:block/hop_vine5" },
+    "age=6": { "model": "testmod:block/hop_vine6" },
+    "age=7": { "model": "testmod:block/hop_vine7" }
+  }
+}

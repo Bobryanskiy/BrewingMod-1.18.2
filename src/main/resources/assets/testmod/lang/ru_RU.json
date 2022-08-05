@@ -1,0 +1,23 @@
+{
+  "item.testmod.mead": "Медовуха",
+  "item.testmod.mug": "Кружка",
+
+  "item.testmod.beer": "Пиво",
+  "item.testmod.beer.tooltip": "Британский Крепкий Эль",
+
+  "item.testmod.malt": "Солод",
+  "item.testmod.caramel_malt": "Карамельный Солод",
+  "item.testmod.yeast": "Пивные Дрожжи",
+  "item.testmod.hop_seeds": "Семена Хмеля",
+  "item.testmod.hop": "Хмель",
+
+  "testmod.burp": "Отрыжка",
+
+  "block.testmod.oak_barrel": "Дубовая Бочка",
+  "block.testmod.hop_vine": "Лоза Хмеля",
+  "block.testmod.mead_block": "Блок Медовухи",
+
+  "text.oak_barrel": "Дубовая Бочка",
+  "text.oak_barrel.cork": "Закрыть",
+  "text.oak_barrel.uncork": "Открыть"
+}

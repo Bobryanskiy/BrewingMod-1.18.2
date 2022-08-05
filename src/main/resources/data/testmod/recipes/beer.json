@@ -1,0 +1,27 @@
+{
+  "type": "testmod:oak_barrel",
+  "group": "beer",
+  "ingredients": [
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "testmod:malt"
+    },
+    {
+      "item": "testmod:malt"
+    },
+    {
+      "item": "testmod:caramel_malt"
+    },
+    {
+      "item": "testmod:yeast"
+    },
+    {
+      "item": "testmod:hop"
+    }
+  ],
+  "result": {
+    "item": "testmod:beer"
+  }
+}

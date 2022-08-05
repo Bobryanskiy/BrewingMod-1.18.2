@@ -1,0 +1,23 @@
+{
+  "item.testmod.mead": "Mead",
+  "item.testmod.mug": "Mug",
+
+  "item.testmod.beer": "Beer",
+  "item.testmod.beer.tooltip": "British Strong Ale",
+
+  "item.testmod.malt": "Malt",
+  "item.testmod.caramel_malt": "Caramel Malt",
+  "item.testmod.yeast": "Brewer's Yeast",
+  "item.testmod.hop_seeds": "Hop Seeds",
+  "item.testmod.hop": "Hop",
+
+  "testmod.burp": "Burp",
+
+  "block.testmod.oak_barrel": "Oak Barrel",
+  "block.testmod.hop_vine": "Hop Vine",
+  "block.testmod.mead_block": "Блок Медовухи",
+
+  "text.oak_barrel": "Oak Barrel",
+  "text.oak_barrel.cork": "Cork",
+  "text.oak_barrel.uncork": "Uncork"
+}
