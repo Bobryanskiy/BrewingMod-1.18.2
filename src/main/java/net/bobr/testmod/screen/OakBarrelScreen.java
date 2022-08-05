@@ -2,28 +2,21 @@ package net.bobr.testmod.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.bobr.testmod.TestMod;
-import net.bobr.testmod.block.custom.OakBarrelBlock;
-import net.bobr.testmod.block.entity.OakBarrelBlockEntity;
 import net.bobr.testmod.block.enums.LiquidType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
-import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.PressableWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.AbstractFurnaceScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerListener;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.structure.OceanMonumentGenerator;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
@@ -31,7 +24,6 @@ import net.minecraft.util.math.MathHelper;
 import org.apache.commons.compress.utils.Lists;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class OakBarrelScreen extends HandledScreen<OakBarrelScreenHandler> {

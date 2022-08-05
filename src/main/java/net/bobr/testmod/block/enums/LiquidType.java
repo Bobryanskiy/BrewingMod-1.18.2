@@ -3,14 +3,16 @@ package net.bobr.testmod.block.enums;
 import net.minecraft.util.StringIdentifiable;
 
 public enum LiquidType implements StringIdentifiable {
-    NOTHING ("nothing"),
-    WATER ("water"),
-    MEAD ("mead"),
-    BEER ("beer");
+    NOTHING (0,"nothing"),
+    WATER (1,"water"),
+    MEAD (2,"mead"),
+    BEER (3,"beer");
 
     private final String name;
+    private final int id;
 
-    private LiquidType (String name) {
+    private LiquidType (int id, String name) {
+        this.id = id;
         this.name = name;
     }
 
@@ -24,12 +26,7 @@ public enum LiquidType implements StringIdentifiable {
     }
 
     public int getId() {
-        return switch (this) {
-            case WATER -> 1;
-            case MEAD -> 2;
-            case BEER -> 3;
-            default -> 0;
-        };
+        return this.id;
     }
 
     public static LiquidType getLiquidType(int i) {
