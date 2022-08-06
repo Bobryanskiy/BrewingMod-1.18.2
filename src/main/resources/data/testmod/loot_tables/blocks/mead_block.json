@@ -7,54 +7,91 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "conditions": [
-                {
-                  "condition": "minecraft:block_state_property",
-                  "block": "testmod:mead",
-                  "properties": {
-                    "pickles": "2"
-                  }
-                }
-              ],
-              "count": 2.0,
-              "add": false
-            },
-            {
-              "function": "minecraft:set_count",
-              "conditions": [
-                {
-                  "condition": "minecraft:block_state_property",
-                  "block": "testmod:mead",
-                  "properties": {
-                    "pickles": "3"
-                  }
-                }
-              ],
-              "count": 3.0,
-              "add": false
-            },
-            {
-              "function": "minecraft:set_count",
-              "conditions": [
-                {
-                  "condition": "minecraft:block_state_property",
-                  "block": "testmod:mead",
-                  "properties": {
-                    "pickles": "4"
-                  }
-                }
-              ],
-              "count": 4.0,
-              "add": false
-            },
-            {
-              "function": "minecraft:explosion_decay"
-            }
-          ],
           "name": "testmod:mead"
+        }
+      ],
+      "functions": [
+        {
+          "function": "minecraft:copy_nbt",
+          "source": "block_entity",
+          "ops": [
+            {
+              "source": "Damage",
+              "target": "BlockEntityTag.Damage",
+              "op": "replace"
+            }
+          ]
+        },
+        {
+          "function": "minecraft:set_damage",
+          "damage": 2,
+          "add": false
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "testmod:mead_block",
+          "properties": {
+            "pickles": "1"
+          }
+        }
+      ]
+    },
+    {
+      "rolls": 2.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "testmod:mead"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "testmod:mead_block",
+          "properties": {
+            "pickles": "2"
+          }
+        }
+      ]
+    },
+    {
+      "rolls": 3.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "testmod:mead"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "testmod:mead_block",
+          "properties": {
+            "pickles": "3"
+          }
+        }
+      ]
+    },
+    {
+      "rolls": 4.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "testmod:mead"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "testmod:mead_block",
+          "properties": {
+            "pickles": "4"
+          }
         }
       ]
     }

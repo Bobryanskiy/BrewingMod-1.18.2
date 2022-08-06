@@ -49,7 +49,7 @@ public class Mead extends AliasedBlockItem {
         }
         if (stack.isEmpty()) {
             ItemStack s = new ItemStack(ModItems.MEAD);
-            s.damage(stack.getDamage() + 1, user, p -> p.playSound(SoundEvents.BLOCK_ANVIL_BREAK, 1f, 1f));
+            s.damage(stack.getDamage() + 1, user, p -> p.sendToolBreakStatus(user.getActiveHand()));
             return s;
         }
         if (user instanceof PlayerEntity playerEntity && !((PlayerEntity)user).getAbilities().creativeMode) {
