@@ -1,12 +1,10 @@
 package net.bobr.testmod.block.entity;
 
-import net.bobr.testmod.block.ModBlocks;
 import net.bobr.testmod.block.custom.OakBarrelBlock;
 import net.bobr.testmod.block.enums.LiquidType;
 import net.bobr.testmod.item.inventory.ImplementedInventory;
 import net.bobr.testmod.recipe.OakBarrelRecipe;
 import net.bobr.testmod.screen.OakBarrelScreenHandler;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,15 +13,14 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.screen.*;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,38 +42,24 @@ public class OakBarrelBlockEntity extends BlockEntity implements NamedScreenHand
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
-                switch (index) {
-                    case 0: return OakBarrelBlockEntity.this.progress;
-                    case 1: return OakBarrelBlockEntity.this.maxProgress;
-                    case 2: return OakBarrelBlockEntity.this.cork;
-                    case 3: return OakBarrelBlockEntity.this.level;
-                    case 4: return OakBarrelBlockEntity.this.type.getId();
-                }
-                return 0;
+                return switch (index) {
+                    case 0 -> OakBarrelBlockEntity.this.progress;
+                    case 1 -> OakBarrelBlockEntity.this.maxProgress;
+                    case 2 -> OakBarrelBlockEntity.this.cork;
+                    case 3 -> OakBarrelBlockEntity.this.level;
+                    case 4 -> OakBarrelBlockEntity.this.type.getId();
+                    default -> 0;
+                };
             }
 
             @Override
             public void set(int index, int value) {
                 switch (index) {
-                    case 0: {
-                        OakBarrelBlockEntity.this.progress = value;
-                        break;
-                    }
-                    case 1: {
-                        OakBarrelBlockEntity.this.maxProgress = value;
-                        break;
-                    }
-                    case 2: {
-                        OakBarrelBlockEntity.this.cork = value;
-                        break;
-                    }
-                    case 3: {
-                        OakBarrelBlockEntity.this.level = value;
-                        break;
-                    }
-                    case 4: {
-                        OakBarrelBlockEntity.this.type = LiquidType.getLiquidType(value);
-                    }
+                    case 0 -> OakBarrelBlockEntity.this.progress = value;
+                    case 1 -> OakBarrelBlockEntity.this.maxProgress = value;
+                    case 2 -> OakBarrelBlockEntity.this.cork = value;
+                    case 3 -> OakBarrelBlockEntity.this.level = value;
+                    case 4 -> OakBarrelBlockEntity.this.type = LiquidType.getLiquidType(value);
                 }
             }
 

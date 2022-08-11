@@ -1,10 +1,13 @@
 package net.bobr.testmod.block.custom;
 
+import net.bobr.testmod.block.entity.MeadBlockEntity;
+import net.bobr.testmod.block.entity.ModBlockEntities;
 import net.bobr.testmod.item.ModItems;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
@@ -13,16 +16,18 @@ import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
-public class MeadBlock extends Block {
-
+public class MeadBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final IntProperty AMOUNT = Properties.PICKLES;
     protected static final VoxelShape ONE_BEER_SHAPE = Block.createCuboidShape(6.0, 0.0, 6.0, 10.0, 6.0, 10.0);
@@ -90,6 +95,22 @@ public class MeadBlock extends Block {
     }
 
     @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        world.getBlockEntity(pos, ModBlockEntities.MEAD_BLOCK).ifPresent(blockEntity ->
+                blockEntity.updateNbt(world, pos, itemStack.getDamage()));
+        if (placer instanceof PlayerEntity player) {
+            boolean bl = player.getAbilities().creativeMode;
+            PlayerInventory playerInventory = player.getInventory();
+            int i = playerInventory.getSlotWithStack(itemStack);
+            if (!bl && i != -1) {
+                if (PlayerInventory.isValidHotbarIndex(i)) {
+                    playerInventory.selectedSlot = i;
+                }
+            }
+        }
+    }
+
+    @Override
     public boolean canReplace(BlockState state, ItemPlacementContext context) {
         if (!context.shouldCancelInteraction() && context.getStack().isOf(this.asItem()) && state.get(AMOUNT) < 4) {
             return true;
@@ -103,5 +124,28 @@ public class MeadBlock extends Block {
             return Blocks.AIR.getDefaultState();
         }
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+    }
+
+    @Override
+    public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
+        if (blockEntity instanceof MeadBlockEntity meadBlockEntity) {
+            for (int i = 0; i < state.get(AMOUNT); ++i) {
+                ItemStack itemStack = new ItemStack(ModItems.MEAD);
+                itemStack.setDamage(meadBlockEntity.getDmg(i));
+                ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), itemStack);
+            }
+//            meadBlockEntity.clearList();
+        }
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new MeadBlockEntity(pos, state);
     }
 }
