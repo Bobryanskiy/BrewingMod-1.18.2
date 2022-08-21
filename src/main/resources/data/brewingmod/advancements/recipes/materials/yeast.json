@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "brewingmod:yeast"
+    ]
+  },
+  "criteria": {
+    "has_malt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "brewingmod:malt"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "brewingmod:yeast"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_malt",
+      "has_the_recipe"
+    ]
+  ]
+}

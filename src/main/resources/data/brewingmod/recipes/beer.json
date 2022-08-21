@@ -1,0 +1,27 @@
+{
+  "type": "brewingmod:oak_barrel",
+  "group": "beer",
+  "ingredients": [
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "brewingmod:malt"
+    },
+    {
+      "item": "brewingmod:malt"
+    },
+    {
+      "item": "brewingmod:caramel_malt"
+    },
+    {
+      "item": "brewingmod:yeast"
+    },
+    {
+      "item": "brewingmod:hop"
+    }
+  ],
+  "result": {
+    "item": "brewingmod:beer"
+  }
+}

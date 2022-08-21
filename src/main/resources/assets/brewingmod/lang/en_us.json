@@ -1,0 +1,25 @@
+{
+  "item.brewingmod.mead": "Mead",
+  "item.brewingmod.mug": "Mug",
+
+  "item.brewingmod.beer": "Beer",
+  "item.brewingmod.beer.tooltip": "British Strong Ale",
+
+  "item.brewingmod.malt": "Malt",
+  "item.brewingmod.caramel_malt": "Caramel Malt",
+  "item.brewingmod.yeast": "Brewer's Yeast",
+  "item.brewingmod.hop_seeds": "Hop Seeds",
+  "item.brewingmod.hop": "Hop",
+
+  "brewingmod.burp": "Burp",
+
+  "block.brewingmod.oak_barrel": "Oak Barrel",
+  "block.brewingmod.hop_vine": "Hop Vine",
+  "block.brewingmod.mead_block": "Блок Медовухи",
+
+  "text.oak_barrel": "Oak Barrel",
+  "text.oak_barrel.cork": "Cork",
+  "text.oak_barrel.uncork": "Uncork",
+
+  "itemGroup.brewingmod.alcohol": "Alcohol"
+}

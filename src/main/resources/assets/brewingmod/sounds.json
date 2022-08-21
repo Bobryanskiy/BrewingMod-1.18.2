@@ -1,0 +1,8 @@
+{
+  "burp": {
+    "subtitle": "brewingmod.burp",
+    "sounds": [
+      "brewingmod:burp"
+    ]
+  }
+}
