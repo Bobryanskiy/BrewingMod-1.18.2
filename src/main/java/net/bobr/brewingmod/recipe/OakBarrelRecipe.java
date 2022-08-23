@@ -3,6 +3,8 @@ package net.bobr.brewingmod.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import net.bobr.brewingmod.block.ModBlocks;
+import net.bobr.brewingmod.item.ModItems;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -76,6 +78,11 @@ public class OakBarrelRecipe implements Recipe<SimpleInventory> {
     @Override
     public DefaultedList<Ingredient> getIngredients() {
         return this.recipeItems;
+    }
+
+    @Override
+    public ItemStack createIcon() {
+        return new ItemStack(ModBlocks.OAK_BARREL);
     }
 
     public static class Type implements RecipeType<OakBarrelRecipe> {

@@ -1,5 +1,6 @@
 package net.bobr.brewingmod.mixin;
 
+import com.chocohead.mm.api.ClassTinkerers;
 import net.bobr.brewingmod.item.ModItemGroup;
 import net.bobr.brewingmod.recipe.OakBarrelRecipe;
 import net.minecraft.client.recipebook.ClientRecipeBook;
@@ -18,7 +19,7 @@ public class ClientRecipeBookMixin {
         if (recipe.getType() == OakBarrelRecipe.Type.INSTANCE) {
             ItemGroup itemGroup = recipe.getOutput().getItem().getGroup();
             if (itemGroup == ModItemGroup.ALCOHOL) {
-                info.setReturnValue(RecipeBookGroup.BLAST_FURNACE_BLOCKS);
+                info.setReturnValue(ClassTinkerers.getEnum(RecipeBookGroup.class, "ALCOHOL_DRINKS"));
             }
         }
     }

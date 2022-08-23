@@ -25,7 +25,7 @@ public class ModBlocks {
     public static final Block HOP_VINE = registerBlockWithoutBlockItem("hop_vine",
             new HopVineBlock(FabricBlockSettings.copy(Blocks.WHEAT).nonOpaque()));
     public static final Block MEAD_BLOCK = registerBlockWithoutBlockItem("mead_block",
-            new MeadBlock(FabricBlockSettings.of(Material.DECORATION).nonOpaque().breakInstantly()));
+            new MeadBlock(FabricBlockSettings.of(Material.DECORATION).nonOpaque().breakInstantly().sounds(BlockSoundGroup.SLIME)));
 
     private static Block registerBlock(String name, Block block, ItemGroup group) {
         registerBlockItem(name, block, group);

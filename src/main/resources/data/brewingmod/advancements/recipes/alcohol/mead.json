@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "brewingmod:mead_from_glow_berries",
+      "brewingmod:mead_from_sweet_berries",
+      "brewingmod:mead_from_glow_berries_and_sweet_berries"
+    ]
+  },
+  "criteria": {
+    "oak_barrel_placed": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "brewingmod:oak_barrel"
+      }
+    },
+    "oak_barrel_open": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "location": {
+          "block": {
+            "blocks": [
+              "brewingmod:oak_barrel"
+            ]
+          }
+        }
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "brewingmod:mead_from_glow_berries"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "oak_barrel_placed",
+      "oak_barrel_open",
+      "has_the_recipe"
+    ]
+  ]
+}

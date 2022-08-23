@@ -1,0 +1,48 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "brewingmod:beer"
+    ]
+  },
+  "criteria": {
+    "mead_drunk": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": [
+            "brewingmod:mead"
+          ]
+        }
+      }
+    },
+    "has_hop_seeds": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "brewingmod:hop_seeds"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "brewingmod:beer"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "mead_drunk",
+      "has_the_recipe"
+    ],
+    [
+      "has_hop_seeds",
+      "has_the_recipe"
+    ]
+  ]
+}
