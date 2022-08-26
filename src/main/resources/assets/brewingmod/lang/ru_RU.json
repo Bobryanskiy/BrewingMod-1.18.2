@@ -21,5 +21,7 @@
   "text.oak_barrel.cork": "Закрыть",
   "text.oak_barrel.uncork": "Открыть",
 
-  "itemGroup.brewingmod.alcohol": "Алкоголь"
+  "itemGroup.brewingmod.alcohol": "Алкоголь",
+
+  "gui.recipebook.toggleRecipes.brewingable": "Рецепты для дубовой бочки"
 }

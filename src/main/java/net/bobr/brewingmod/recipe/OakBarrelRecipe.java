@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.bobr.brewingmod.block.ModBlocks;
 import net.bobr.brewingmod.item.ModItems;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -14,7 +15,7 @@ import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
-public class OakBarrelRecipe implements Recipe<SimpleInventory> {
+public class OakBarrelRecipe implements Recipe<Inventory> {
     private final String group;
     private final Identifier id;
     private final ItemStack output;
@@ -28,7 +29,7 @@ public class OakBarrelRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public boolean matches(SimpleInventory inventory, World world) {
+    public boolean matches(Inventory inventory, World world) {
         RecipeMatcher recipeMatcher = new RecipeMatcher();
         int i = 0;
         for (int j = 0; j < inventory.size(); ++j) {
@@ -41,7 +42,7 @@ public class OakBarrelRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack craft(SimpleInventory inventory) {
+    public ItemStack craft(Inventory inventory) {
         return this.output.copy();
     }
 
@@ -125,9 +126,7 @@ public class OakBarrelRecipe implements Recipe<SimpleInventory> {
             String string = buf.readString();
             DefaultedList<Ingredient> inputs = DefaultedList.ofSize(buf.readInt(), Ingredient.EMPTY);
 
-            for (int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromPacket(buf));
-            }
+            inputs.replaceAll(ignored -> Ingredient.fromPacket(buf));
 
             ItemStack output = buf.readItemStack();
             return new OakBarrelRecipe(id, string, output, inputs);

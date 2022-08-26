@@ -116,7 +116,7 @@ public class OakBarrelScreenHandler extends AbstractRecipeScreenHandler<Inventor
     @Override
     public boolean onButtonClick(PlayerEntity player, int id) {
         switch (id) {
-            case 1: {
+            case 1 -> {
                 this.setProperty(2, 1);
                 this.context.run((world, pos) -> {
                     BlockState blockState = world.getBlockState(pos);
@@ -129,7 +129,7 @@ public class OakBarrelScreenHandler extends AbstractRecipeScreenHandler<Inventor
                 });
                 return true;
             }
-            case 2:
+            case 2 -> {
                 this.setProperty(2, 0);
                 this.context.run((world, pos) -> {
                     BlockState blockState = world.getBlockState(pos);
@@ -141,6 +141,7 @@ public class OakBarrelScreenHandler extends AbstractRecipeScreenHandler<Inventor
                     this.sendContentUpdates();
                 });
                 return true;
+            }
         }
         return false;
     }
@@ -218,7 +219,7 @@ public class OakBarrelScreenHandler extends AbstractRecipeScreenHandler<Inventor
 
     @Override
     public int getCraftingResultSlotIndex() {
-        return 0;
+        return -1;
     }
 
     @Override
@@ -233,7 +234,7 @@ public class OakBarrelScreenHandler extends AbstractRecipeScreenHandler<Inventor
 
     @Override
     public int getCraftingSlotCount() {
-        return 7;
+        return 6;
     }
 
     @Override

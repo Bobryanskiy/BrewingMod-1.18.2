@@ -18,6 +18,7 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.screen.AbstractRecipeScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerListener;
@@ -36,9 +37,28 @@ public class OakBarrelScreen extends HandledScreen<OakBarrelScreenHandler> imple
     private static final Identifier TEXTURE =
             new Identifier(BrewingMod.MOD_ID, "textures/gui/oak_barrel_gui.png");
     private static final Identifier RECIPE_BUTTON_TEXTURE = new Identifier("textures/gui/recipe_button.png");
+    private static final Identifier BOOK_BUTTON_TEXTURE = new Identifier(BrewingMod.MOD_ID, "textures/gui/mod_recipe_book.png");
+    private static final Text TOGGLE_BREWING_RECIPES_TEXT = new TranslatableText("gui.recipebook.toggleRecipes.smeltable");
     List<Text> tooltip = new ArrayList<>();
     private final List<OakBarrelButtonWidget> buttons = Lists.newArrayList();
-    private final RecipeBookWidget recipeBook = new RecipeBookWidget();
+    private final RecipeBookWidget recipeBook = new RecipeBookWidget() {
+        @Override
+        protected void setBookButtonTexture() {
+            this.toggleCraftableButton.setTextureUV(0, 0, 28, 18, BOOK_BUTTON_TEXTURE);
+        }
+
+        @Override
+        public void showGhostRecipe(Recipe<?> recipe, List<Slot> slots) {
+            ItemStack itemStack = recipe.getOutput();
+            this.ghostSlots.setRecipe(recipe);
+            this.alignRecipeToGrid(this.craftingScreenHandler.getCraftingWidth(), this.craftingScreenHandler.getCraftingHeight(), this.craftingScreenHandler.getCraftingResultSlotIndex(), recipe, recipe.getIngredients().iterator(), 0);
+        }
+
+        @Override
+        protected Text getToggleCraftableButtonText() {
+            return TOGGLE_BREWING_RECIPES_TEXT;
+        }
+    };
     private boolean narrow;
     LiquidType liquidType;
     int level;
@@ -82,21 +102,21 @@ public class OakBarrelScreen extends HandledScreen<OakBarrelScreenHandler> imple
     @Override
     protected void init() {
         super.init();
-        titleX = 8;//(backgroundWidth - textRenderer.getWidth(title)) / 2;
+        titleX = 8;
         TranslatableText uncork = new TranslatableText("text.oak_barrel.uncork");
         int size = textRenderer.getWidth(uncork) + 8;
         this.buttons.clear();
-        this.addButton(new CorkWidget((this.width - this.backgroundWidth) / 2 + (58 - size - 1) / 2 + 4,(this.height - this.backgroundHeight) / 2 + 21, size, 20, new TranslatableText("text.oak_barrel.cork")));
-        this.addButton(new UncorkWidget((this.width - this.backgroundWidth) / 2 + (58 - size - 1) / 2 + 4, (this.height - this.backgroundHeight) / 2 + 45, size, 20, uncork));
         this.narrow = this.width < 379;
         this.recipeBook.initialize(this.width, this.height, this.client, this.narrow, (AbstractRecipeScreenHandler)this.handler);
         this.x = this.recipeBook.findLeftEdge(this.width, this.backgroundWidth);
-        this.addDrawableChild(new TexturedButtonWidget(this.x + 5, this.height / 2 - 49, 20, 18, 0, 0, 19, RECIPE_BUTTON_TEXTURE, button -> {
+        this.addButton(new CorkWidget(this.x + (58 - size - 1) / 2 + 4,(this.height - this.backgroundHeight) / 2 + 21, size, 20, new TranslatableText("text.oak_barrel.cork")));
+        this.addButton(new UncorkWidget(this.x + (58 - size - 1) / 2 + 4, (this.height - this.backgroundHeight) / 2 + 45, size, 20, uncork));
+        this.addDrawableChild(new TexturedButtonWidget(this.x + 143, this.height / 2 - 49, 20, 18, 0, 0, 19, RECIPE_BUTTON_TEXTURE, button -> {
             this.recipeBook.toggleOpen();
             this.x = this.recipeBook.findLeftEdge(this.width, this.backgroundWidth);
-            ((TexturedButtonWidget)button).setPos(this.x + 5, this.height / 2 - 49);
+            this.buttons.forEach(button2 -> button2.setPos(this.x + (58 - size - 1) / 2 + 4, button2.getY()));
+            ((TexturedButtonWidget)button).setPos(this.x + 143, this.height / 2 - 49);
         }));
-        this.addSelectableChild(this.recipeBook);
         this.setInitialFocus(this.recipeBook);
     }
 
@@ -123,8 +143,8 @@ public class OakBarrelScreen extends HandledScreen<OakBarrelScreenHandler> imple
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, TEXTURE);
-        int i = (this.width - this.backgroundWidth) / 2;
-        int j = (this.height - this.backgroundHeight) / 2;
+        int i = this.x;
+        int j = this.y;
         this.drawTexture(matrices, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);
 
         int k = 115;
@@ -132,21 +152,45 @@ public class OakBarrelScreen extends HandledScreen<OakBarrelScreenHandler> imple
         if (this.liquidType != null && this.liquidType != LiquidType.NOTHING) {
             if (this.liquidType.equals(LiquidType.WATER)) {
                 switch (this.level) {
-                    case 1: {k = 185;l = 73;break;}
-                    case 2: {k = 203;l = 73;break;}
-                    case 3: {k = 221;l = 73;break;}
-                    case 4: {k = 185;l = 0;break;}
-                    case 5: {k = 203;l = 0;break;}
-                    case 6: {k = 221;l = 0;}
+                    case 1 -> {
+                        k = 185;l = 73;
+                    }
+                    case 2 -> {
+                        k = 203;l = 73;
+                    }
+                    case 3 -> {
+                        k = 221;l = 73;
+                    }
+                    case 4 -> {
+                        k = 185;l = 0;
+                    }
+                    case 5 -> {
+                        k = 203;l = 0;
+                    }
+                    case 6 -> {
+                        k = 221;l = 0;
+                    }
                 }
             } else {
                 switch (this.level) {
-                    case 1: {k = 131;l = 166;break;}
-                    case 2: {k = 149;l = 166;break;}
-                    case 3: {k = 167;l = 166;break;}
-                    case 4: {k = 185;l = 146;break;}
-                    case 5: {k = 203;l = 146;break;}
-                    case 6: {k = 221;l = 146;}
+                    case 1 -> {
+                        k = 131;l = 166;
+                    }
+                    case 2 -> {
+                        k = 149;l = 166;
+                    }
+                    case 3 -> {
+                        k = 167;l = 166;
+                    }
+                    case 4 -> {
+                        k = 185;l = 146;
+                    }
+                    case 5 -> {
+                        k = 203;l = 146;
+                    }
+                    case 6 -> {
+                        k = 221;l = 146;
+                    }
                 }
             }
         }
@@ -174,8 +218,9 @@ public class OakBarrelScreen extends HandledScreen<OakBarrelScreenHandler> imple
         } else {
             this.recipeBook.render(matrices, mouseX, mouseY, delta);
             super.render(matrices, mouseX, mouseY, delta);
-            this.recipeBook.drawGhostSlots(matrices, this.x, this.y, true, delta);
+            this.recipeBook.drawGhostSlots(matrices, this.x, this.y, false, delta);
         }
+        this.recipeBook.drawTooltip(matrices, this.x, this.y, mouseX, mouseY);
     }
 
     @Override
@@ -224,12 +269,16 @@ public class OakBarrelScreen extends HandledScreen<OakBarrelScreenHandler> imple
     }
 
     @Environment(value=EnvType.CLIENT)
-    static interface OakBarrelButtonWidget {
-        public boolean shouldRenderTooltip();
+    interface OakBarrelButtonWidget {
+        boolean shouldRenderTooltip();
 
-        public void renderTooltip(MatrixStack var1, int var2, int var3);
+        void renderTooltip(MatrixStack var1, int var2, int var3);
 
-        public void tick(boolean var1);
+        void tick(boolean var1);
+
+        void setPos(int x, int y);
+
+        int getY();
     }
 
     @Environment(value=EnvType.CLIENT)
@@ -290,6 +339,17 @@ public class OakBarrelScreen extends HandledScreen<OakBarrelScreenHandler> imple
             this.renderBackground(matrices, minecraftClient, mouseX, mouseY);
             int j = this.active ? 0xFFFFFF : 0xA0A0A0;
             ClickableWidget.drawCenteredText(matrices, textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0f) << 24);
+        }
+
+        @Override
+        public void setPos(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        @Override
+        public int getY() {
+            return this.y;
         }
 
         @Override

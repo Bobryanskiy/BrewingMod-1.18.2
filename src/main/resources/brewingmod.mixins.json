@@ -4,10 +4,14 @@
   "package": "net.bobr.brewingmod.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "PlayerEntityMixin",
+    "ServerPlayNetworkHandlerMixin"
   ],
   "client": [
-    "ExampleMixin",
     "ClientRecipeBookMixin",
+    "ExampleMixin",
+    "IAlternativeButtonWidgetGetter",
+    "RecipeAlternativesWidgetMixin",
     "RecipeBookGroupMixin",
     "RecipeBookOptionsMixin"
   ],

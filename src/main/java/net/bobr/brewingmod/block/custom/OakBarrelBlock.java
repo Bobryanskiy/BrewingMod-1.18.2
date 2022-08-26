@@ -4,6 +4,7 @@ import net.bobr.brewingmod.block.entity.ModBlockEntities;
 import net.bobr.brewingmod.block.entity.OakBarrelBlockEntity;
 import net.bobr.brewingmod.block.enums.LiquidType;
 import net.bobr.brewingmod.property.ModProperties;
+import net.bobr.brewingmod.util.IPlayerLastClickedPosGetterSetter;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -522,6 +523,7 @@ public class OakBarrelBlock extends BlockWithEntity {
             NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
 
             if (screenHandlerFactory != null) {
+                ((IPlayerLastClickedPosGetterSetter) player).setLastClickedPos(pos);
                 player.openHandledScreen(screenHandlerFactory);
             }
             return ActionResult.CONSUME;

@@ -21,5 +21,7 @@
   "text.oak_barrel.cork": "Cork",
   "text.oak_barrel.uncork": "Uncork",
 
-  "itemGroup.brewingmod.alcohol": "Alcohol"
+  "itemGroup.brewingmod.alcohol": "Alcohol",
+
+  "gui.recipebook.toggleRecipes.brewingable": "Showing Brewable"
 }
