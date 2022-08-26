@@ -38,7 +38,7 @@ public class OakBarrelScreen extends HandledScreen<OakBarrelScreenHandler> imple
             new Identifier(BrewingMod.MOD_ID, "textures/gui/oak_barrel_gui.png");
     private static final Identifier RECIPE_BUTTON_TEXTURE = new Identifier("textures/gui/recipe_button.png");
     private static final Identifier BOOK_BUTTON_TEXTURE = new Identifier(BrewingMod.MOD_ID, "textures/gui/mod_recipe_book.png");
-    private static final Text TOGGLE_BREWING_RECIPES_TEXT = new TranslatableText("gui.recipebook.toggleRecipes.smeltable");
+    private static final Text TOGGLE_BREWING_RECIPES_TEXT = new TranslatableText("gui.recipebook.toggleRecipes.brewable");
     List<Text> tooltip = new ArrayList<>();
     private final List<OakBarrelButtonWidget> buttons = Lists.newArrayList();
     private final RecipeBookWidget recipeBook = new RecipeBookWidget() {

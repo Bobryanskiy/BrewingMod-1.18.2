@@ -1,6 +1,9 @@
 package net.bobr.brewingmod.item.custom;
 
 import net.bobr.brewingmod.item.ModItems;
+import net.bobr.brewingmod.networking.ModPackets;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
@@ -57,6 +60,7 @@ public class Mead extends AliasedBlockItem {
                 playerEntity.dropItem(itemStack, false);
             }
         }
+        ClientPlayNetworking.send(ModPackets.DRUNK_ALCOHOL, PacketByteBufs.create());
         return stack;
     }
 

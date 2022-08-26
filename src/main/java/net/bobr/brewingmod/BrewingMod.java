@@ -4,6 +4,7 @@ import net.bobr.brewingmod.block.ModBlocks;
 import net.bobr.brewingmod.block.entity.ModBlockEntities;
 import net.bobr.brewingmod.item.ModItems;
 import net.bobr.brewingmod.loot.ModLootTableModifiers;
+import net.bobr.brewingmod.networking.ModPackets;
 import net.bobr.brewingmod.recipe.ModRecipes;
 import net.bobr.brewingmod.screen.ModScreenHandlers;
 import net.fabricmc.api.ModInitializer;
@@ -22,5 +23,6 @@ public class BrewingMod implements ModInitializer {
 		ModScreenHandlers.registerAllScreenHandlers();
 		ModRecipes.registerRecipes();
 		ModLootTableModifiers.registerLootTableModifier();
+		ModPackets.registerC2SPackets();
 	}
 }

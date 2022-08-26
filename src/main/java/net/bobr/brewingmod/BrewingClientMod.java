@@ -1,6 +1,7 @@
 package net.bobr.brewingmod;
 
 import net.bobr.brewingmod.block.ModBlocks;
+import net.bobr.brewingmod.networking.ModPackets;
 import net.bobr.brewingmod.screen.ModScreenHandlers;
 import net.bobr.brewingmod.screen.OakBarrelScreen;
 import net.fabricmc.api.ClientModInitializer;
@@ -16,5 +17,7 @@ public class BrewingClientMod implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.MEAD_BLOCK, RenderLayer.getCutout());
 
         ScreenRegistry.register(ModScreenHandlers.OAK_BARREL_SCREEN_HANDLER, OakBarrelScreen::new);
+
+        ModPackets.registerS2CPackets();
     }
 }

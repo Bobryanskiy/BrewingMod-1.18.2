@@ -1,6 +1,10 @@
 package net.bobr.brewingmod.item.custom;
 
+import net.bobr.brewingmod.networking.ModPackets;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
@@ -31,6 +35,12 @@ public class Beer extends Item {
     @Override
     public SoundEvent getEatSound() {
         return SoundEvents.ITEM_HONEY_BOTTLE_DRINK;
+    }
+
+    @Override
+    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
+        ClientPlayNetworking.send(ModPackets.DRUNK_ALCOHOL, PacketByteBufs.create());
+        return super.finishUsing(stack, world, user);
     }
 
     @Override
