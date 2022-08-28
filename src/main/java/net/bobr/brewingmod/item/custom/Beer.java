@@ -1,5 +1,6 @@
 package net.bobr.brewingmod.item.custom;
 
+import net.bobr.brewingmod.item.ModItems;
 import net.bobr.brewingmod.networking.ModPackets;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -7,6 +8,7 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -18,6 +20,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class Beer extends Item {
+    private final float alc = 2.0f;
+
     public Beer(Settings settings) {
         super(settings);
     }
@@ -28,6 +32,7 @@ public class Beer extends Item {
     }
 
     @Override
+
     public SoundEvent getDrinkSound() {
         return SoundEvents.ITEM_HONEY_BOTTLE_DRINK;
     }
@@ -39,7 +44,14 @@ public class Beer extends Item {
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        ClientPlayNetworking.send(ModPackets.DRUNK_ALCOHOL, PacketByteBufs.create());
+        if (!world.isClient) {
+            PacketByteBuf buf = PacketByteBufs.create();
+            buf.writeFloat(this.alc);
+            ClientPlayNetworking.send(ModPackets.DRUNK_ALCOHOL, buf);
+        }
+        if (stack.isEmpty()) {
+            return new ItemStack(ModItems.MUG);
+        }
         return super.finishUsing(stack, world, user);
     }
 

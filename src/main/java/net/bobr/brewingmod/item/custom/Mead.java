@@ -10,14 +10,17 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AliasedBlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
+import net.minecraft.text.Text;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 
 public class Mead extends AliasedBlockItem {
+    private final float alc = 0.6f;
 
     public Mead(Block block, Settings settings) {
         super(block, settings);
@@ -35,33 +38,23 @@ public class Mead extends AliasedBlockItem {
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-
         super.finishUsing(stack, world, user);
+        ItemStack itemStack;
+        itemStack = new ItemStack(ModItems.MEAD);
+        itemStack.damage(stack.getDamage() + 1, user, p -> p.sendToolBreakStatus(user.getActiveHand()));
         if (user instanceof ServerPlayerEntity serverPlayerEntity) {
             Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
             serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
         }
-        if (stack.getDamage() == 2) {
-            ItemStack itemStack = new ItemStack(ModItems.MUG);
-            PlayerEntity playerEntity = (PlayerEntity)user;
-            if (!playerEntity.getInventory().insertStack(itemStack)) {
-                playerEntity.dropItem(itemStack, false);
-            }
-//            world.playSound((PlayerEntity) user, user.getBlockPos(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 1f, 0.6f);
+        if (!world.isClient) {
+            PacketByteBuf buf = PacketByteBufs.create();
+            buf.writeFloat(this.alc);
+            ClientPlayNetworking.send(ModPackets.DRUNK_ALCOHOL, buf);
         }
-        if (stack.isEmpty()) {
-            ItemStack s = new ItemStack(ModItems.MEAD);
-            s.damage(stack.getDamage() + 1, user, p -> p.sendToolBreakStatus(user.getActiveHand()));
-            return s;
+        if (itemStack.isEmpty()) {
+            return new ItemStack(ModItems.MUG);
         }
-        if (user instanceof PlayerEntity playerEntity && !((PlayerEntity)user).getAbilities().creativeMode) {
-            ItemStack itemStack = new ItemStack(ModItems.MEAD);
-            if (!playerEntity.getInventory().insertStack(itemStack)) {
-                playerEntity.dropItem(itemStack, false);
-            }
-        }
-        ClientPlayNetworking.send(ModPackets.DRUNK_ALCOHOL, PacketByteBufs.create());
-        return stack;
+        return itemStack;
     }
 
     @Override
